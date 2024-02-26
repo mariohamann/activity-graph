@@ -4,12 +4,37 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  '@enhance/custom-element':
+    specifier: ^1.2.1
+    version: 1.2.1
+
 devDependencies:
   vite:
     specifier: ^5.1.4
     version: 5.1.4
 
 packages:
+
+  /@enhance/base-element@1.3.1:
+    resolution: {integrity: sha512-Uhtc4XONdxAP+IyqPn+rhZhb3xYpJqBCvETK8rU/7ve7054URZdmRi6XhdrFJwpO1oVRz/an1iK9k6T1RGUbcA==}
+    dev: false
+
+  /@enhance/custom-element-mixin@1.2.1:
+    resolution: {integrity: sha512-mWu55QpQ8I7wZLEH6pHKAvcu8y1RZuxBTqnSIoKoCF8CnJzPDBAAb0X2VeZyv9ChHDF0Ql7Yr5UuZdhcKeqNQg==}
+    dev: false
+
+  /@enhance/custom-element@1.2.1:
+    resolution: {integrity: sha512-Lzs0F22fJnpcuorM5rFwx+I/NGw2xGTiVP6VwHYjCo6LUM47wOT789/FTZftZtUcj1AUfFAggHZrT+SrPnQsew==}
+    dependencies:
+      '@enhance/base-element': 1.3.1
+      '@enhance/custom-element-mixin': 1.2.1
+      '@enhance/template-mixin': 1.0.1
+    dev: false
+
+  /@enhance/template-mixin@1.0.1:
+    resolution: {integrity: sha512-pYk44LCcu0TgvXwrZEl9X36mhLkjULeBW8XN91EuwCykL4rI8S47COqOj2dXYjmi32Yl3mtGt89RNfVNIV8h2w==}
+    dev: false
 
   /@esbuild/aix-ppc64@0.19.12:
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
