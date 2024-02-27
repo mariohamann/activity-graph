@@ -28,30 +28,28 @@ class ActivityGraph extends HTMLElement {
 
   render() {
     let html = '<style>' + this.getStyle() + '</style>';
-    html += '<div class="activity-graph">';
-    html += this.renderGraph();
-    html += '</div>';
+    html += '<table class="activity-graph">' + this.renderGraph() + '</table>';
     return html;
   }
 
   getStyle() {
     return `
       .activity-graph {
-        display: flex;
+        border-collapse: collapse;
         font-size: 10px;
       }
-      .activity-graph .day {
-        width: 10px;
-        height: 10px;
-        margin: 1px;
-        border-radius: 2px;
+      .activity-graph th, .activity-graph td {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        border: 1px solid #ddd;
       }
-      .activity-graph .level-0 { background-color: #ebedf0; }
-      .activity-graph .level-1 { background-color: #9be9a8; }
-      .activity-graph .level-2 { background-color: #40c463; }
-      .activity-graph .level-3 { background-color: #30a14e; }
-      .activity-graph .level-4 { background-color: #216e39; }
-      .disabled { background-color: #f6f8fa; } /* Disabled style */
+      .level-0 { background-color: #ebedf0; }
+      .level-1 { background-color: #9be9a8; }
+      .level-2 { background-color: #40c463; }
+      .level-3 { background-color: #30a14e; }
+      .level-4 { background-color: #216e39; }
+      .disabled { background-color: #f6f8fa; }
     `;
   }
 
@@ -65,17 +63,35 @@ class ActivityGraph extends HTMLElement {
     const adjustedStartDate = addDays(startDate, -startDate.getUTCDay());
     const adjustedEndDate = addDays(endDate, 6 - endDate.getUTCDay());
 
-    let weeks = [];
-    for (let date = new Date(adjustedStartDate); date <= adjustedEndDate; addDays(date, 1)) {
-      const weekIndex = Math.floor(((date - adjustedStartDate) / (1000 * 60 * 60 * 24)) / 7);
-      weeks[weekIndex] = weeks[weekIndex] || [];
+    let headerHtml = '<tr>';
+    let bodyHtml = [];
+
+    // Initialize headers and body structure
+    for (let day = 0; day < 7; day++) {
+      bodyHtml.push(`<tr><th>${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day]}</th>`);
+    }
+
+    headerHtml += `<th></th>`;
+
+    for (let date = new Date(adjustedStartDate); date <= adjustedEndDate;) {
+      const monthAndDay = `${date.toLocaleString('default', { month: 'short' })} ${date.getUTCDate()}`;
+      if (date.getUTCDay() === 0) { // Start of a new week
+        headerHtml += `<th>${monthAndDay}</th>`;
+      }
+
       const dateKey = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
       const level = this.isDateInRange(date) ? this.calculateActivityLevel(dateKey) : 'disabled';
-      weeks[weekIndex].push(`<div class="day level-${level}" title="${dateKey}"></div>`);
+      bodyHtml[date.getUTCDay()] += `<td class="day level-${level}" title="${dateKey}"></td>`;
+
       date = addDays(date, 1);
     }
 
-    return weeks.map(week => `<div class="week">${week.join('')}</div>`).join('');
+    headerHtml += '</tr>';
+
+    // Close all body rows
+    bodyHtml = bodyHtml.map(row => row + '</tr>').join('');
+
+    return headerHtml + bodyHtml;
   }
 
   isDateInRange(date) {
