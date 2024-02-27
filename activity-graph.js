@@ -11,6 +11,7 @@ class ActivityGraph extends HTMLElement {
 		);
 
 		this.innerHTML = this.render();
+    this.lang = this.getAttribute("lang") || "default";
 	}
 
 	parseDateAttribute(attrName) {
@@ -139,7 +140,7 @@ class ActivityGraph extends HTMLElement {
 		let bodyHtml = [];
 
 		const getWeekDay = (day, brevity) =>
-			new Date(Date.UTC(2021, 0, day + 3)).toLocaleString("default", {
+      new Date(Date.UTC(2021, 0, day + 3)).toLocaleString(this.lang, {
 				weekday: brevity,
 			});
 
@@ -210,7 +211,7 @@ class ActivityGraph extends HTMLElement {
 		headerHtml += "</tr><tr><th></th>";
 
     const getMonth = (year, month, brevity) =>
-      new Date(Date.UTC(year, month)).toLocaleString("default", {
+      new Date(Date.UTC(year, month)).toLocaleString(this.lang, {
         month: brevity,
       });
 
