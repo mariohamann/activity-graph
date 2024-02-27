@@ -63,36 +63,50 @@ class ActivityGraph extends HTMLElement {
     const adjustedStartDate = addDays(startDate, -startDate.getUTCDay());
     const adjustedEndDate = addDays(endDate, 6 - endDate.getUTCDay());
 
-    let headerHtml = '<tr>';
+    let headerHtml = '<tr><th></th>';
     let bodyHtml = [];
 
-    // Initialize headers and body structure
     for (let day = 0; day < 7; day++) {
       bodyHtml.push(`<tr><th>${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day]}</th>`);
     }
 
-    headerHtml += `<th></th>`;
+    let monthColspan = {};
+    let lastMonthYearKey = "";
 
     for (let date = new Date(adjustedStartDate); date <= adjustedEndDate;) {
-      const monthAndDay = `${date.toLocaleString('default', { month: 'short' })} ${date.getUTCDate()}`;
-      if (date.getUTCDay() === 0) { // Start of a new week
-        headerHtml += `<th>${monthAndDay}</th>`;
+      const weekDay = date.getUTCDay();
+      const weekEndDate = addDays(date, 6 - weekDay);
+      const monthYearKey = `${weekEndDate.getUTCFullYear()}-${weekEndDate.getUTCMonth()}`;
+
+      if (lastMonthYearKey !== monthYearKey) {
+        monthColspan[monthYearKey] = 1;
+        lastMonthYearKey = monthYearKey;
+      } else {
+        monthColspan[monthYearKey]++;
       }
 
-      const dateKey = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
-      const level = this.isDateInRange(date) ? this.calculateActivityLevel(dateKey) : 'disabled';
-      bodyHtml[date.getUTCDay()] += `<td class="day level-${level}" title="${dateKey}"></td>`;
+      for (let d = 0; d < 7; d++) {
+        const currentDate = addDays(date, d);
+        const dateKey = `${currentDate.getUTCFullYear()}-${String(currentDate.getUTCMonth() + 1).padStart(2, '0')}-${String(currentDate.getUTCDate()).padStart(2, '0')}`;
+        const level = this.isDateInRange(currentDate) ? this.calculateActivityLevel(dateKey) : 'disabled';
+        bodyHtml[(date.getUTCDay() + d) % 7] += `<td class="day level-${level}" title="${dateKey}"></td>`;
+      }
 
-      date = addDays(date, 1);
+      date = addDays(date, 7);
     }
 
-    headerHtml += '</tr>';
+    Object.keys(monthColspan).forEach(monthYear => {
+      const [year, month] = monthYear.split('-').map(Number);
+      const monthName = new Date(Date.UTC(year, month)).toLocaleString('default', { month: 'short' });
+      headerHtml += `<th colspan="${monthColspan[monthYear]}">${monthName} ${year}</th>`;
+    });
 
-    // Close all body rows
+    headerHtml += '</tr>';
     bodyHtml = bodyHtml.map(row => row + '</tr>').join('');
 
     return headerHtml + bodyHtml;
   }
+
 
   isDateInRange(date) {
     const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
