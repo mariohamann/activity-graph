@@ -71,6 +71,8 @@ class ActivityGraph extends HTMLElement {
     }
 
     let monthColspan = {};
+    let yearColspan = {};
+    let lastYear = "";
     let lastMonthYearKey = "";
 
     for (let date = new Date(adjustedStartDate); date <= adjustedEndDate;) {
@@ -79,10 +81,17 @@ class ActivityGraph extends HTMLElement {
       const monthYearKey = `${weekEndDate.getUTCFullYear()}-${weekEndDate.getUTCMonth()}`;
 
       if (lastMonthYearKey !== monthYearKey) {
+        if (lastYear !== `${weekEndDate.getUTCFullYear()}`) {
+          lastYear = `${weekEndDate.getUTCFullYear()}`;
+          yearColspan[lastYear] = 1;
+        } else {
+          yearColspan[lastYear]++;
+        }
         monthColspan[monthYearKey] = 1;
         lastMonthYearKey = monthYearKey;
       } else {
         monthColspan[monthYearKey]++;
+        yearColspan[lastYear]++;
       }
 
       for (let d = 0; d < 7; d++) {
@@ -95,10 +104,16 @@ class ActivityGraph extends HTMLElement {
       date = addDays(date, 7);
     }
 
+    Object.keys(yearColspan).forEach(year => {
+      headerHtml += `<th colspan="${yearColspan[year]}">${year}</th>`;
+    });
+
+    headerHtml += '</tr><tr><th></th>';
+
     Object.keys(monthColspan).forEach(monthYear => {
       const [year, month] = monthYear.split('-').map(Number);
       const monthName = new Date(Date.UTC(year, month)).toLocaleString('default', { month: 'short' });
-      headerHtml += `<th colspan="${monthColspan[monthYear]}">${monthName} ${year}</th>`;
+      headerHtml += `<th colspan="${monthColspan[monthYear]}">${monthName}</th>`;
     });
 
     headerHtml += '</tr>';
@@ -106,7 +121,6 @@ class ActivityGraph extends HTMLElement {
 
     return headerHtml + bodyHtml;
   }
-
 
   isDateInRange(date) {
     const utcDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
