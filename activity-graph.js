@@ -44,29 +44,37 @@ class ActivityGraph extends HTMLElement {
 		return `
       /* Global */
       activity-graph {
-        border-collapse: collapse;
-        font-size: 16px;
+        color-scheme: light dark;
+        font-size: 12px;
       }
-      activity-graph, activity-graph.dark {
-        color-scheme: dark;
-        --activity-graph-text: white;
+      activity-graph table{
+        table-layout: fixed;
+        width: max-content;
+      }
+      :root {
+        --activity-graph-rounded: 2px;
+        --activity-graph-text-color: white;
+        --activity-graph-text-weight: 400;
+        --activity-graph-font-size: 12px;
+      }
+
+      /* Themes */
+      :root, activity-graph.dark {
         --activity-graph-level-0-bg: #161b22;
         --activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
-        --activity-graph-level-1-bg: #9be9a8;
-        --activity-graph-level-1-border: rgba(27, 31, 35, 0.06);
-        --activity-graph-level-2-bg: #40c463;
-        --activity-graph-level-2-border: rgba(27, 31, 35, 0.06);
-        --activity-graph-level-3-bg: #30a14e;
-        --activity-graph-level-3-border: rgba(27, 31, 35, 0.06);
-        --activity-graph-level-4-bg: #216e39;
-        --activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
+        --activity-graph-level-1-bg: #0e4429;
+        --activity-graph-level-1-border: rgba(255, 255, 255, 0.05);
+        --activity-graph-level-2-bg: #006d32;
+        --activity-graph-level-2-border: rgba(255, 255, 255, 0.05);
+        --activity-graph-level-3-bg: #26a641;
+        --activity-graph-level-3-border: rgba(255, 255, 255, 0.05);
+        --activity-graph-level-4-bg: #39d353;
+        --activity-graph-level-4-border: rgba(255, 255, 255, 0.05);
         --activity-graph-disabled-bg: transparent;
-        --activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
       }
       @media (prefers-color-scheme: light) {
-        activity-graph {
-          color-scheme: light;
-          --activity-graph-text: #24292e;
+        :root {
+          --activity-graph-text-color: #24292e;
           --activity-graph-level-0-bg: #ebedf0;
           --activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
           --activity-graph-level-1-bg: #9be9a8;
@@ -84,10 +92,11 @@ class ActivityGraph extends HTMLElement {
       activity-graph th, activity-graph td {
         text-align: left;
       }
-      /* Heading */
+
+      /* Headings */
       activity-graph th {
-        font-weight: var(--text-weight-normal, 400);
-        color: var(--activity-graph-text);
+        font-weight: var(--activity-graph-text-weight);
+        color: var(--activity-graph-text-color);
         text-align: left;
         position: relative;
       }
@@ -116,12 +125,13 @@ class ActivityGraph extends HTMLElement {
         white-space: nowrap;
         width: 1px;
       }
-      /* Days */
+
+      /* Cells */
       activity-graph td.day {
         width: 1em;
         height: 1em;
         outline-offset: -1px;
-        border-radius: 2px;
+        border-radius: var(--activity-graph-rounded);
       }
       activity-graph td.level-0 {
         background-color: var(--activity-graph-level-0-bg);
@@ -144,8 +154,7 @@ class ActivityGraph extends HTMLElement {
         outline: 1px solid var(--activity-graph-level-4-border);
       }
       activity-graph .disabled {
-        background-color: var(--activity-graph-disabled-b);
-        outline: 1px solid var(--activity-graph-disabled-border);
+        background-color: var(--activity-graph-disabled-bg);
       }
     `;
 	}
