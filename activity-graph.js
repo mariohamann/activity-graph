@@ -36,7 +36,7 @@ class ActivityGraph extends HTMLElement {
 	render() {
 		let html = "<style>" + this.getStyle() + "</style>";
 		html +=
-			'<table class="activity-graph">' + this.renderGraph() + "</table>";
+			'<table>' + this.renderGraph() + "</table>";
 		return html;
 	}
 
@@ -47,13 +47,47 @@ class ActivityGraph extends HTMLElement {
         border-collapse: collapse;
         font-size: 16px;
       }
+      activity-graph, activity-graph.dark {
+        color-scheme: dark;
+        --activity-graph-text: white;
+        --activity-graph-level-0-bg: #161b22;
+        --activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
+        --activity-graph-level-1-bg: #9be9a8;
+        --activity-graph-level-1-border: rgba(27, 31, 35, 0.06);
+        --activity-graph-level-2-bg: #40c463;
+        --activity-graph-level-2-border: rgba(27, 31, 35, 0.06);
+        --activity-graph-level-3-bg: #30a14e;
+        --activity-graph-level-3-border: rgba(27, 31, 35, 0.06);
+        --activity-graph-level-4-bg: #216e39;
+        --activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
+        --activity-graph-disabled-bg: transparent;
+        --activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
+      }
+      @media (prefers-color-scheme: light) {
+        activity-graph {
+          color-scheme: light;
+          --activity-graph-text: #24292e;
+          --activity-graph-level-0-bg: #ebedf0;
+          --activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
+          --activity-graph-level-1-bg: #9be9a8;
+          --activity-graph-level-1-border: rgba(27, 31, 35, 0.06);
+          --activity-graph-level-2-bg: #40c463;
+          --activity-graph-level-2-border: rgba(27, 31, 35, 0.06);
+          --activity-graph-level-3-bg: #30a14e;
+          --activity-graph-level-3-border: rgba(27, 31, 35, 0.06);
+          --activity-graph-level-4-bg: #216e39;
+          --activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
+          --activity-graph-disabled-bg: transparent;
+          --activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
+        }
+      }
       activity-graph th, activity-graph td {
         text-align: left;
       }
       /* Heading */
       activity-graph th {
-        font-weight: var(--base-text-weight-normal, 400);
-        color: var(--fgColor-default, var(--color-fg-default));
+        font-weight: var(--text-weight-normal, 400);
+        color: var(--activity-graph-text);
         text-align: left;
         position: relative;
       }
@@ -90,28 +124,28 @@ class ActivityGraph extends HTMLElement {
         border-radius: 2px;
       }
       activity-graph td.level-0 {
-        background-color: var(--color-calendar-graph-day-bg, #161b22);
-        outline: 1px solid var(--color-calendar-graph-day-border, rgba(27, 31, 35, 0.06));
+        background-color: var(--activity-graph-level-0-bg);
+        outline: 1px solid var(--activity-graph-level-0-border);
       }
       activity-graph td.level-1 {
-        background-color: var(--color-calendar-graph-day-level-1-bg, #9be9a8);
-        outline: 1px solid var(--color-calendar-graph-day-level-1-border, rgba(255, 255, 255, 0.05));
+        background-color: var(--activity-graph-level-1-bg);
+        outline: 1px solid var(--activity-graph-level-1-border);
       }
       activity-graph td.level-2 {
-        background-color: var(--color-calendar-graph-day-level-2-bg, #006d32);
-        outline: 1px solid var(--color-calendar-graph-day-level-2-border, rgba(255, 255, 255, 0.05));
+        background-color: var(--activity-graph-level-2-bg);
+        outline: 1px solid var(--activity-graph-level-2-border);
       }
       activity-graph td.level-3 {
-        background-color: var(--color-calendar-graph-day-level-3-bg, #006d32);
-        outline: 1px solid var(--color-calendar-graph-day-level-3-border, rgba(255, 255, 255, 0.05));
+        background-color: var(--activity-graph-level-3-bg);
+        outline: 1px solid var(--activity-graph-level-3-border);
       }
       activity-graph td.level-4 {
-        background-color: var(--color-calendar-graph-day-level-4-bg, #006d32);
-        outline: 1px solid var(--color-calendar-graph-day-level-4-border, rgba(255, 255, 255, 0.05));
+        background-color: var(--activity-graph-level-4-bg);
+        outline: 1px solid var(--activity-graph-level-4-border);
       }
       activity-graph .disabled {
-        background-color: var(--color-calendar-graph-day-disabled-bg, transparent);
-        outline: 1px solid var(--color-calendar-graph-day-disabled-border, rgba(255, 255, 255, 0.05));
+        background-color: var(--activity-graph-disabled-b);
+        outline: 1px solid var(--activity-graph-disabled-border);
       }
     `;
 	}
