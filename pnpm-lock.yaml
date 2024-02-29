@@ -4,40 +4,29 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@enhance/custom-element':
-    specifier: ^1.2.1
-    version: 1.2.1
-  lit-html:
-    specifier: ^3.1.2
-    version: 3.1.2
-
 devDependencies:
+  '@enhance/ssr':
+    specifier: ^3.5.2
+    version: 3.5.2
   vite:
     specifier: ^5.1.4
     version: 5.1.4
 
 packages:
 
-  /@enhance/base-element@1.3.1:
-    resolution: {integrity: sha512-Uhtc4XONdxAP+IyqPn+rhZhb3xYpJqBCvETK8rU/7ve7054URZdmRi6XhdrFJwpO1oVRz/an1iK9k6T1RGUbcA==}
-    dev: false
-
-  /@enhance/custom-element-mixin@1.2.1:
-    resolution: {integrity: sha512-mWu55QpQ8I7wZLEH6pHKAvcu8y1RZuxBTqnSIoKoCF8CnJzPDBAAb0X2VeZyv9ChHDF0Ql7Yr5UuZdhcKeqNQg==}
-    dev: false
-
-  /@enhance/custom-element@1.2.1:
-    resolution: {integrity: sha512-Lzs0F22fJnpcuorM5rFwx+I/NGw2xGTiVP6VwHYjCo6LUM47wOT789/FTZftZtUcj1AUfFAggHZrT+SrPnQsew==}
+  /@begin/parse5@0.0.4:
+    resolution: {integrity: sha512-1H5S1AcFqpQfBMG0z4z7URFb5jWCrILIH9MkXSmTsyYd4hj4kgJnpXHGELJE9HnXH1maI/WfHi5j+udDVkvZ9g==}
     dependencies:
-      '@enhance/base-element': 1.3.1
-      '@enhance/custom-element-mixin': 1.2.1
-      '@enhance/template-mixin': 1.0.1
-    dev: false
+      parse5: 7.1.2
+    dev: true
 
-  /@enhance/template-mixin@1.0.1:
-    resolution: {integrity: sha512-pYk44LCcu0TgvXwrZEl9X36mhLkjULeBW8XN91EuwCykL4rI8S47COqOj2dXYjmi32Yl3mtGt89RNfVNIV8h2w==}
-    dev: false
+  /@enhance/ssr@3.5.2:
+    resolution: {integrity: sha512-gbHPbfHqXzGK1267hzXGy394kVFntYOERguh6/tQeRnZ1Cwxt79OQPpVLU/gITnkXB9A9oOa9WGzkjKDoW2qbw==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      '@begin/parse5': 0.0.4
+      nanoid: 4.0.2
+    dev: true
 
   /@esbuild/aix-ppc64@0.19.12:
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -354,9 +343,10 @@ packages:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
 
-  /@types/trusted-types@2.0.7:
-    resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
-    dev: false
+  /entities@4.5.0:
+    resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
+    engines: {node: '>=0.12'}
+    dev: true
 
   /esbuild@0.19.12:
     resolution: {integrity: sha512-aARqgq8roFBj054KvQr5f1sFu0D65G+miZRCuJyJ0G13Zwx7vRar5Zhn2tkQNzIXcBrNVsv/8stehpj+GAjgbg==}
@@ -397,16 +387,22 @@ packages:
     dev: true
     optional: true
 
-  /lit-html@3.1.2:
-    resolution: {integrity: sha512-3OBZSUrPnAHoKJ9AMjRL/m01YJxQMf+TMHanNtTHG68ubjnZxK0RFl102DPzsw4mWnHibfZIBJm3LWCZ/LmMvg==}
-    dependencies:
-      '@types/trusted-types': 2.0.7
-    dev: false
-
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+    dev: true
+
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: true
+
+  /parse5@7.1.2:
+    resolution: {integrity: sha512-Czj1WaSVpaoj0wbhMzLmWD69anp2WH7FXMB9n1Sy8/ZFF9jolSQVMu1Ij5WIyGmcBmhk7EOndpO4mIpihVqAXw==}
+    dependencies:
+      entities: 4.5.0
     dev: true
 
   /picocolors@1.0.0:

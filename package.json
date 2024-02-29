@@ -2,17 +2,13 @@
   "name": "@mariohamann/activity-graph",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@enhance/ssr": "^3.5.2",
     "vite": "^5.1.4"
-  },
-  "dependencies": {
-    "@enhance/custom-element": "^1.2.1",
-    "lit-html": "^3.1.2"
   }
 }

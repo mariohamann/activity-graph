@@ -1,33 +1,12 @@
-const html = String.raw;
-const css = String.raw;
+export default function ActivityGraphElement({ html = String.raw, state }) {
+	const css = String.raw;
+	const { attrs = {} } = state;
 
-export default class ActivityGraphTemplate {
-	constructor({
-		rangeStart,
-		rangeEnd,
-		activityData,
-		activityLevels,
-		lang,
-		i18n,
-	}) {
-		this.rangeStart = this.parseDateAttribute(rangeStart);
-		this.rangeEnd = this.parseDateAttribute(rangeEnd);
-		this.activityData = this.parseActivityData(activityData);
-		this.activityLevels = this.parseActivityLevels(activityLevels);
-		this.lang = lang || "default";
-		this.i18n = {
-			activities: "Activities",
-			less: "Less",
-			more: "More",
-			...JSON.parse(i18n || "{}"),
-		};
-	}
-
-	parseDateAttribute(date) {
+	function parseDateAttribute(date) {
 		return date ? new Date(date) : new Date();
 	}
 
-	parseActivityData(dataString) {
+	function parseActivityData(dataString) {
 		if (!dataString) return {};
 		return dataString.split(",").reduce((acc, curr) => {
 			acc[curr] = (acc[curr] || 0) + 1;
@@ -35,28 +14,40 @@ export default class ActivityGraphTemplate {
 		}, {});
 	}
 
-	parseActivityLevels(levelsString) {
+	function parseActivityLevels(levelsString) {
 		return levelsString
 			? levelsString.split(",").map(Number)
 			: [0, 1, 2, 3, 4];
 	}
 
-	render() {
+	const rangeStart = parseDateAttribute(attrs["range-start"]);
+	const rangeEnd = parseDateAttribute(attrs["range-end"]);
+	const activityData = parseActivityData(attrs["activity-data"]);
+	const activityLevels = parseActivityLevels(attrs["activity-levels"]);
+	const lang = attrs.lang || "default";
+	const i18n = {
+		activities: "Activities",
+		less: "Less",
+		more: "More",
+		...JSON.parse(attrs.i18n),
+	};
+
+	function render() {
 		let innerHtml = html`<style>
-			${this.getStyle()}
+			${getStyle()}
 		</style>`;
 		innerHtml += html`<figure>
 			<table>
 				<tbody>
-					${this.renderGraph()}
+					${renderGraph()}
 				</tbody>
 			</table>
-			<figcaption>${this.generateLegend()}</figcaption>
+			<figcaption>${generateLegend()}</figcaption>
 		</figure>`;
 		return innerHtml;
 	}
 
-	renderGraph() {
+	function renderGraph() {
 		const toUTCDate = (date) =>
 			new Date(
 				Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
@@ -70,8 +61,8 @@ export default class ActivityGraphTemplate {
 				)
 			);
 
-		const startDate = toUTCDate(this.rangeStart);
-		const endDate = toUTCDate(this.rangeEnd);
+		const startDate = toUTCDate(rangeStart);
+		const endDate = toUTCDate(rangeEnd);
 
 		const adjustedStartDate = addDays(startDate, -startDate.getUTCDay());
 		const adjustedEndDate = addDays(endDate, 6 - endDate.getUTCDay());
@@ -80,10 +71,10 @@ export default class ActivityGraphTemplate {
 		const weekDayHeaders = Array.from({ length: 7 }, (_, day) => {
 			const longWeekDay = new Date(
 				Date.UTC(2021, 0, day + 3)
-			).toLocaleString(this.lang, { weekday: "long" });
+			).toLocaleString(lang, { weekday: "long" });
 			const shortWeekDay = new Date(
 				Date.UTC(2021, 0, day + 3)
-			).toLocaleString(this.lang, { weekday: "short" });
+			).toLocaleString(lang, { weekday: "short" });
 			return html`<th class="weekday">
 				<span class="sr-only">${longWeekDay}</span
 				><span aria-hidden="true">${shortWeekDay}</span>
@@ -127,11 +118,11 @@ export default class ActivityGraphTemplate {
 					2,
 					"0"
 				)}`;
-				const level = this.isDateInRange(currentDate)
-					? this.calculateActivityLevel(dateKey)
+				const level = isDateInRange(currentDate)
+					? calculateActivityLevel(dateKey)
 					: "disabled";
 				const text = `${dateKey} – Activities: ${
-					this.activityData[dateKey] || 0
+					activityData[dateKey] || 0
 				}`;
 				bodyRows[d].push(
 					html`<td class="day level-${level}" title="${text}">
@@ -158,7 +149,7 @@ export default class ActivityGraphTemplate {
 				const [year, month] = monthYear.split("-").map(Number);
 				const monthName = new Date(
 					Date.UTC(year, month)
-				).toLocaleString(this.lang, { month: "short" });
+				).toLocaleString(lang, { month: "short" });
 				return html`<th
 					class="month"
 					colspan="${monthColspan[monthYear]}"
@@ -189,67 +180,67 @@ export default class ActivityGraphTemplate {
 		return headerHtml + bodyHtml;
 	}
 
-	isDateInRange(date) {
+	function isDateInRange(date) {
 		const utcDate = Date.UTC(
 			date.getUTCFullYear(),
 			date.getUTCMonth(),
 			date.getUTCDate()
 		);
 		const startUtc = Date.UTC(
-			this.rangeStart.getUTCFullYear(),
-			this.rangeStart.getUTCMonth(),
-			this.rangeStart.getUTCDate()
+			rangeStart.getUTCFullYear(),
+			rangeStart.getUTCMonth(),
+			rangeStart.getUTCDate()
 		);
 		const endUtc = Date.UTC(
-			this.rangeEnd.getUTCFullYear(),
-			this.rangeEnd.getUTCMonth(),
-			this.rangeEnd.getUTCDate()
+			rangeEnd.getUTCFullYear(),
+			rangeEnd.getUTCMonth(),
+			rangeEnd.getUTCDate()
 		);
 		return utcDate >= startUtc && utcDate <= endUtc;
 	}
 
-	calculateActivityLevel(date) {
-		const activityCount = this.activityData[date] || 0;
-		for (let i = this.activityLevels.length - 1; i >= 0; i--) {
-			if (activityCount >= this.activityLevels[i]) {
+	function calculateActivityLevel(date) {
+		const activityCount = activityData[date] || 0;
+		for (let i = activityLevels.length - 1; i >= 0; i--) {
+			if (activityCount >= activityLevels[i]) {
 				return i;
 			}
 		}
 		return 0;
 	}
 
-	getLegendText(index) {
-		const count = this.activityLevels[index];
-		const nextCount = this.activityLevels[index + 1] || null;
+	function getLegendText(index) {
+		const count = activityLevels[index];
+		const nextCount = activityLevels[index + 1] || null;
 
 		if (nextCount) {
-			return `${this.i18n.activities}: ${count}${
+			return `${i18n.activities}: ${count}${
 				nextCount - count > 1 ? `–${nextCount - 1}` : ""
 			}`;
 		}
-		return `${this.i18n.activities}: >${count}`;
+		return `${i18n.activities}: >${count}`;
 	}
 
-	generateLegend() {
+	function generateLegend() {
 		let legendHtml = "";
-		this.activityLevels.forEach((level, index) => {
+		activityLevels.forEach((level, index) => {
 			legendHtml += html`<div
 				class="day level-${index}"
-				title="${this.getLegendText(index)}"
+				title="${getLegendText(index)}"
 			>
-				<span class="sr-only">${this.getLegendText(index)}</span>
+				<span class="sr-only">${getLegendText(index)}</span>
 			</div>`;
 		});
 
 		legendHtml = html`
-			<div>${this.i18n.less}</div>
+			<div>${i18n.less}</div>
 			${legendHtml}
-			<div>${this.i18n.more}</div>
+			<div>${i18n.more}</div>
 		</div>`;
 		return legendHtml;
 	}
 
-	getStyle() {
+	function getStyle() {
 		return css`
 			/* Global */
 			activity-graph {
@@ -398,4 +389,6 @@ export default class ActivityGraphTemplate {
 			}
 		`;
 	}
+
+	return html`${render()}`;
 }
