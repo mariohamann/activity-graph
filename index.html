@@ -8,6 +8,8 @@
 	</head>
 	<body>
 		<h1><code>&lt;activity-graph&gt;</code></h1>
+		<h2>Server Side Rendered</h2>
+		<!-- server -->
 		<activity-graph
 			range-start="2024-01-01"
 			range-end="2024-12-31"
@@ -16,6 +18,18 @@
 			i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
 			lang="de"
 		></activity-graph>
+		<!-- /server -->
+		<!-- client -->
+		<h2>Client Side Rendered</h2>
+		<activity-graph
+			range-start="2024-01-01"
+			range-end="2024-12-31"
+			activity-data="2024-01-01,2024-01-01,2024-01-04,2024-01-05"
+			activity-levels="0,1,2,4"
+			i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
+			lang="de"
+		></activity-graph>
+		<!-- /client -->
 		<pre>
       <code>
 &lt;activity-graph
@@ -23,7 +37,8 @@
   range-end="2024-12-29"
   activity-data="2024-01-01,2024-01-01,2024-01-04,2024-01-05"
   activity-levels="0,1,2,4"
-  lang="en"
+  i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
+  lang="de"
 &gt;&lt;/activity-graph&gt;
       </code>
     </pre>
@@ -34,5 +49,6 @@
 			<span>•</span>
 			<a href="https://mariohamann.com">mariohamann.com</a>
 		</div>
+		<script type="module" src="/src/activity-graph.mjs"></script>
 	</body>
 </html>

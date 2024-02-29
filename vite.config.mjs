@@ -6,15 +6,15 @@ const htmlPlugin = () => {
 	return {
 		name: "html-transform",
 		transformIndexHtml(html) {
-			if (html.includes("/src/activity-graph.mjs")) {
-				return html;
-			}
-			const body = html.match(/<body>([\s\S]*)<\/body>/)[1];
+			// everything between <!-- client --> and <!-- /client -->
+			const body = html.match(
+				/<!-- server -->([\s\S]*)<!-- \/server -->/
+			)[1];
 			const render = enhance({
 				elements: {
 					"activity-graph": ActivityGraphElement,
 				},
-				bodyContent: false,
+				bodyContent: true,
 			});
 			return html.replace(body, render`${body}`);
 		},

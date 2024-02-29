@@ -374,7 +374,7 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 				justify-content: center;
 				gap: 0.25em;
 				margin-top: -1.25em;
-				position: fixed;
+				position: sticky;
 				left: 50%;
 				transform: translateX(-50%);
 			}
