@@ -15,11 +15,11 @@
 
 a {
 	font-weight: 500;
-	color: var(--activity-graph-level-3-bg);
+	color: var(--activity-graph-level-4-bg);
 	text-decoration: inherit;
 }
 a:hover {
-	color: var(--activity-graph-level-2-bg);
+	color: var(--activity-graph-level-3-bg);
 }
 
 body {
@@ -32,7 +32,7 @@ body {
 	min-width: 320px;
 	min-height: 100vh;
 }
-body activity-graph {
+body activity-graph figure {
 	padding: 12px;
 	border-radius: 8px;
 	border: solid 1px rgb(48, 54, 61);

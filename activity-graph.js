@@ -40,11 +40,14 @@ class ActivityGraph extends HTMLElement {
 		let innerHtml = html`<style>
 			${this.getStyle()}
 		</style>`;
-		innerHtml += html`<table>
-			<tbody>
-				${this.renderGraph()}
-			</tbody>
-		</table>`;
+		innerHtml += html`<figure>
+			<table>
+				<tbody>
+					${this.renderGraph()}
+				</tbody>
+			</table>
+			<figcaption>${this.generateLegend()}</figcaption>
+		</figure>`;
 		return innerHtml;
 	}
 
@@ -161,7 +164,6 @@ class ActivityGraph extends HTMLElement {
 			})
 			.join("");
 
-		// Combine everything into final HTML
 		const headerHtml = html`<tr>
 				<th></th>
 				${yearHeaders}
@@ -211,6 +213,33 @@ class ActivityGraph extends HTMLElement {
 		return 0;
 	}
 
+	getLegendText(index) {
+		const legendTexts = [
+			"No activity",
+			"Low activity",
+			"Medium-low activity",
+			"Medium-high activity",
+			"High activity",
+		];
+		return legendTexts[index] || "Unknown";
+	}
+
+	generateLegend() {
+		let legendHtml = "";
+		this.activityLevels.forEach((level, index) => {
+			legendHtml += html`<div class="day level-${level}">
+				<span class="sr-only">${this.getLegendText(index)}</span>
+			</div>`;
+		});
+
+		legendHtml = html`
+			<div>Less</div>
+			${legendHtml}
+			<div>More</div>
+		</div>`;
+		return legendHtml;
+	}
+
 	getStyle() {
 		return css`
 			/* Global */
@@ -218,7 +247,12 @@ class ActivityGraph extends HTMLElement {
 				color-scheme: light dark;
 				font-size: 12px;
 				display: block;
+			}
+			activity-graph figure {
 				overflow-x: auto;
+				margin: 0;
+				position: relative;
+				display: block;
 			}
 			activity-graph table {
 				width: max-content;
@@ -304,34 +338,54 @@ class ActivityGraph extends HTMLElement {
 			}
 
 			/* Cells */
-			activity-graph td.day {
+			activity-graph .day {
 				width: 1em;
 				height: 1em;
 				outline-offset: -1px;
 				border-radius: var(--activity-graph-rounded);
 			}
-			activity-graph td.level-0 {
+			activity-graph .level-0 {
 				background-color: var(--activity-graph-level-0-bg);
 				outline: 1px solid var(--activity-graph-level-0-border);
 			}
-			activity-graph td.level-1 {
+			activity-graph .level-1 {
 				background-color: var(--activity-graph-level-1-bg);
 				outline: 1px solid var(--activity-graph-level-1-border);
 			}
-			activity-graph td.level-2 {
+			activity-graph .level-2 {
 				background-color: var(--activity-graph-level-2-bg);
 				outline: 1px solid var(--activity-graph-level-2-border);
 			}
-			activity-graph td.level-3 {
+			activity-graph .level-3 {
 				background-color: var(--activity-graph-level-3-bg);
 				outline: 1px solid var(--activity-graph-level-3-border);
 			}
-			activity-graph td.level-4 {
+			activity-graph .level-4 {
 				background-color: var(--activity-graph-level-4-bg);
 				outline: 1px solid var(--activity-graph-level-4-border);
 			}
 			activity-graph .disabled {
 				background-color: var(--activity-graph-disabled-bg);
+			}
+			/* Legend */
+			activity-graph figcaption {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.25em;
+				margin-top: -1.25em;
+				position: fixed;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			activity-graph table {
+				margin-bottom: 2em;
+			}
+			activity-graph figcaption div:first-of-type {
+				margin-right: 0.5em;
+			}
+			activity-graph figcaption div:last-of-type {
+				margin-left: 0.5em;
 			}
 		`;
 	}
