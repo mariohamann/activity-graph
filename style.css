@@ -4,7 +4,7 @@
 	font-weight: 400;
 
 	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
+	color: var(--activity-graph-text-color);
 	background-color: rgb(13, 17, 23);
 
 	font-synthesis: none;
@@ -15,31 +15,29 @@
 
 a {
 	font-weight: 500;
-	color: #646cff;
+	color: var(--activity-graph-level-3-bg);
 	text-decoration: inherit;
 }
 a:hover {
-	color: #535bf2;
+	color: var(--activity-graph-level-2-bg);
 }
 
 body {
 	margin: 0;
 	display: flex;
+	flex-direction: column;
+	gap: 24px;
 	place-items: center;
 	justify-content: center;
 	min-width: 320px;
 	min-height: 100vh;
 }
-
-.wrapper {
+body activity-graph {
+	padding: 12px;
 	border-radius: 8px;
 	border: solid 1px rgb(48, 54, 61);
-	font-size: 10px;
-}
-
-.wrapper activity-graph {
-	padding: 12px;
-	width: 320px;
+	font-size: 12px;
+	width: 480px;
 }
 
 activity-graph table {
@@ -47,16 +45,20 @@ activity-graph table {
 }
 
 h1 {
-	font-size: 3.2em;
+	font-size: 2em;
 	line-height: 1.1;
+}
+
+pre {
+	margin: 0;
+}
+
+code {
+	font-size: 0.9em;
 }
 
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #213547;
 		background-color: #ffffff;
-	}
-	a:hover {
-		color: #747bff;
 	}
 }

@@ -111,7 +111,7 @@ class ActivityGraph extends HTMLElement {
 			}
 			activity-graph th.year,
 			activity-graph th.month {
-				height: 1.5em;
+				height: 1.25em;
 			}
 			activity-graph th span {
 				clip-path: none;
