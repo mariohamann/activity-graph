@@ -214,20 +214,25 @@ class ActivityGraph extends HTMLElement {
 	}
 
 	getLegendText(index) {
-		const legendTexts = [
-			"No activity",
-			"Low activity",
-			"Medium-low activity",
-			"Medium-high activity",
-			"High activity",
-		];
-		return legendTexts[index] || "Unknown";
+		const count = this.activityLevels[index];
+		console.log(count, this.activityLevels[index + 1]);
+		const nextCount = this.activityLevels[index + 1] || null;
+
+		if (nextCount) {
+			return `Activities: ${count}${
+				nextCount - count > 1 ? `–${nextCount - 1}` : ""
+			}`;
+		}
+		return `Activities: >${count}`;
 	}
 
 	generateLegend() {
 		let legendHtml = "";
 		this.activityLevels.forEach((level, index) => {
-			legendHtml += html`<div class="day level-${level}">
+			legendHtml += html`<div
+				class="day level-${index}"
+				title="${this.getLegendText(index)}"
+			>
 				<span class="sr-only">${this.getLegendText(index)}</span>
 			</div>`;
 		});
