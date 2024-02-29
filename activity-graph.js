@@ -215,7 +215,6 @@ class ActivityGraph extends HTMLElement {
 
 	getLegendText(index) {
 		const count = this.activityLevels[index];
-		console.log(count, this.activityLevels[index + 1]);
 		const nextCount = this.activityLevels[index + 1] || null;
 
 		if (nextCount) {
@@ -262,14 +261,18 @@ class ActivityGraph extends HTMLElement {
 			activity-graph table {
 				width: max-content;
 			}
+			activity-graph th,
+			activity-graph td {
+				text-align: left;
+			}
+
+			/* Theming */
 			:root {
 				--activity-graph-rounded: 2px;
 				--activity-graph-text-color: white;
 				--activity-graph-text-weight: 400;
 				--activity-graph-font-size: 12px;
 			}
-
-			/* Themes */
 			:root,
 			activity-graph.dark {
 				--activity-graph-level-0-bg: #161b22;
@@ -300,10 +303,6 @@ class ActivityGraph extends HTMLElement {
 					--activity-graph-disabled-bg: transparent;
 					--activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
 				}
-			}
-			activity-graph th,
-			activity-graph td {
-				text-align: left;
 			}
 
 			/* Headings */
