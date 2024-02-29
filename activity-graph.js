@@ -12,9 +12,14 @@ class ActivityGraph extends HTMLElement {
 		this.activityLevels = this.parseActivityLevels(
 			this.getAttribute("activity-levels")
 		);
-
-		this.innerHTML = this.render();
 		this.lang = this.getAttribute("lang") || "default";
+		this.i18n = {
+			activities: "Activities",
+			less: "Less",
+			more: "More",
+			...JSON.parse(this.getAttribute("i18n") || "{}"),
+		};
+		this.innerHTML = this.render();
 	}
 
 	parseDateAttribute(attrName) {
@@ -218,11 +223,11 @@ class ActivityGraph extends HTMLElement {
 		const nextCount = this.activityLevels[index + 1] || null;
 
 		if (nextCount) {
-			return `Activities: ${count}${
+			return `${this.i18n.activities}: ${count}${
 				nextCount - count > 1 ? `–${nextCount - 1}` : ""
 			}`;
 		}
-		return `Activities: >${count}`;
+		return `${this.i18n.activities}: >${count}`;
 	}
 
 	generateLegend() {
@@ -237,9 +242,9 @@ class ActivityGraph extends HTMLElement {
 		});
 
 		legendHtml = html`
-			<div>Less</div>
+			<div>${this.i18n.less}</div>
 			${legendHtml}
-			<div>More</div>
+			<div>${this.i18n.more}</div>
 		</div>`;
 		return legendHtml;
 	}
