@@ -375,8 +375,7 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 				gap: 0.25em;
 				margin-top: -1.25em;
 				position: sticky;
-				left: 50%;
-				transform: translateX(-50%);
+				left: 0;
 			}
 			activity-graph table {
 				margin-bottom: 2em;
