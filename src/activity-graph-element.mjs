@@ -264,12 +264,11 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 				/* Theming */
 				:root {
 					--activity-graph-rounded: 2px;
-					--activity-graph-text-color: white;
 					--activity-graph-text-weight: 400;
 					--activity-graph-font-size: 12px;
 				}
 				:root,
-				activity-graph.dark {
+				.activity-graph-dark {
 					--activity-graph-level-0-bg: #161b22;
 					--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
 					--activity-graph-level-1-bg: #0e4429;
@@ -283,7 +282,7 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 					--activity-graph-disabled-bg: transparent;
 				}
 				:root,
-				activity-graph.light {
+				.activity-graph-light {
 					--activity-graph-text-color: #24292e;
 					--activity-graph-level-0-bg: #ebedf0;
 					--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
@@ -297,6 +296,42 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 					--activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
 					--activity-graph-disabled-bg: transparent;
 					--activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
+				}
+				@media (prefers-color-scheme: dark) {
+					.activity-graph-auto {
+						--activity-graph-text-color: white;
+						--activity-graph-level-0-bg: #161b22;
+						--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
+						--activity-graph-level-1-bg: #0e4429;
+						--activity-graph-level-1-border: rgba(
+							255,
+							255,
+							255,
+							0.05
+						);
+						--activity-graph-level-2-bg: #006d32;
+						--activity-graph-level-2-border: rgba(
+							255,
+							255,
+							255,
+							0.05
+						);
+						--activity-graph-level-3-bg: #26a641;
+						--activity-graph-level-3-border: rgba(
+							255,
+							255,
+							255,
+							0.05
+						);
+						--activity-graph-level-4-bg: #39d353;
+						--activity-graph-level-4-border: rgba(
+							255,
+							255,
+							255,
+							0.05
+						);
+						--activity-graph-disabled-bg: transparent;
+					}
 				}
 
 				/* Headings */

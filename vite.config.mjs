@@ -7,16 +7,16 @@ const htmlPlugin = () => {
 		name: "html-transform",
 		transformIndexHtml(html) {
 			// everything between <!-- client --> and <!-- /client -->
-			const body = html.match(
-				/<!-- server -->([\s\S]*)<!-- \/server -->/
-			)[1];
+
 			const render = enhance({
 				elements: {
 					"activity-graph": ActivityGraphElement,
 				},
-				bodyContent: true,
+				bodyContent: false,
 			});
-			return html.replace(body, render`${body}`);
+			return render`${html}`
+				.replace("<!-- client", "")
+				.replace("/client -->", "");
 		},
 	};
 };

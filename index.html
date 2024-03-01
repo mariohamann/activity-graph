@@ -6,10 +6,9 @@
 		<title>Activity Graph (Web Component)</title>
 		<link rel="stylesheet" href="/style.css" />
 	</head>
-	<body>
+	<body class="activity-graph-auto">
 		<h1><code>&lt;activity-graph&gt;</code></h1>
 		<h2>Server Side Rendered</h2>
-		<!-- server -->
 		<activity-graph
 			range-start="2024-01-01"
 			range-end="2024-12-31"
@@ -18,8 +17,7 @@
 			i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
 			lang="de"
 		></activity-graph>
-		<!-- /server -->
-		<!-- client -->
+		<!-- client
 		<h2>Client Side Rendered</h2>
 		<activity-graph
 			range-start="2024-01-01"
@@ -29,7 +27,7 @@
 			i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
 			lang="de"
 		></activity-graph>
-		<!-- /client -->
+		/client -->
 		<pre>
       <code>
 &lt;activity-graph

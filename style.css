@@ -4,7 +4,6 @@
 	font-weight: 400;
 
 	color-scheme: light dark;
-	color: var(--activity-graph-text-color);
 	background-color: rgb(13, 17, 23);
 
 	font-synthesis: none;
@@ -31,6 +30,7 @@ body {
 	justify-content: center;
 	min-width: 320px;
 	min-height: 100vh;
+	color: var(--activity-graph-text-color);
 }
 body activity-graph figure {
 	padding: 12px;
