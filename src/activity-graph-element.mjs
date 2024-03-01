@@ -282,27 +282,21 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 					--activity-graph-level-4-border: rgba(255, 255, 255, 0.05);
 					--activity-graph-disabled-bg: transparent;
 				}
-				@media (prefers-color-scheme: light) {
-					:root {
-						--activity-graph-text-color: #24292e;
-						--activity-graph-level-0-bg: #ebedf0;
-						--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
-						--activity-graph-level-1-bg: #9be9a8;
-						--activity-graph-level-1-border: rgba(27, 31, 35, 0.06);
-						--activity-graph-level-2-bg: #40c463;
-						--activity-graph-level-2-border: rgba(27, 31, 35, 0.06);
-						--activity-graph-level-3-bg: #30a14e;
-						--activity-graph-level-3-border: rgba(27, 31, 35, 0.06);
-						--activity-graph-level-4-bg: #216e39;
-						--activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
-						--activity-graph-disabled-bg: transparent;
-						--activity-graph-disabled-border: rgba(
-							27,
-							31,
-							35,
-							0.06
-						);
-					}
+				:root,
+				activity-graph.light {
+					--activity-graph-text-color: #24292e;
+					--activity-graph-level-0-bg: #ebedf0;
+					--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
+					--activity-graph-level-1-bg: #9be9a8;
+					--activity-graph-level-1-border: rgba(27, 31, 35, 0.06);
+					--activity-graph-level-2-bg: #40c463;
+					--activity-graph-level-2-border: rgba(27, 31, 35, 0.06);
+					--activity-graph-level-3-bg: #30a14e;
+					--activity-graph-level-3-border: rgba(27, 31, 35, 0.06);
+					--activity-graph-level-4-bg: #216e39;
+					--activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
+					--activity-graph-disabled-bg: transparent;
+					--activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
 				}
 
 				/* Headings */
