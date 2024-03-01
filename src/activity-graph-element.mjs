@@ -240,7 +240,7 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 
 	function getStyle() {
 		return html`
-			<style>
+			<style scope="global">
 				/* Global */
 				activity-graph {
 					color-scheme: light dark;
