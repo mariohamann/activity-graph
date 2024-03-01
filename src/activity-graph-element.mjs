@@ -1,4 +1,4 @@
-function ActivityGraphElement({ html = String.raw, state }) {
+export default function ActivityGraphElement({ html = String.raw, state }) {
 	const css = String.raw;
 	const { attrs = {} } = state;
 
@@ -396,5 +396,3 @@ function ActivityGraphElement({ html = String.raw, state }) {
 
 	return html`${render()}`;
 }
-
-export default ActivityGraphElement;
