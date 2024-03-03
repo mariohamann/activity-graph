@@ -1,6 +1,17 @@
-export default function ActivityGraphElement({ html = String.raw, state }) {
+export default function ActivityGraphElement({
+	html = String.raw,
+	state,
+	toLocaleStringPolyfill = null,
+}) {
 	const css = String.raw;
 	const { attrs = {} } = state;
+
+	// In WASM context Date.toLocaleString is polyfilled by dayjs
+	if (toLocaleStringPolyfill) {
+		Date.prototype.toLocaleString = function (lang, options = {}) {
+			return toLocaleStringPolyfill(this, lang, options);
+		};
+	}
 
 	function parseDateAttribute(date) {
 		return date ? new Date(date) : new Date();
@@ -29,7 +40,7 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 		activities: "Activities",
 		less: "Less",
 		more: "More",
-		...JSON.parse(attrs.i18n),
+		...JSON.parse(attrs.i18n || "{}"),
 	};
 
 	function render() {
@@ -67,12 +78,13 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 
 		// Generate headers for weekdays
 		const weekDayHeaders = Array.from({ length: 7 }, (_, day) => {
-			const longWeekDay = new Date(
-				Date.UTC(2021, 0, day + 3)
-			).toLocaleString(lang, { weekday: "long" });
-			const shortWeekDay = new Date(
-				Date.UTC(2021, 0, day + 3)
-			).toLocaleString(lang, { weekday: "short" });
+			const normalizedDay = Date.UTC(2021, 0, day + 3);
+			const longWeekDay = new Date(normalizedDay).toLocaleString(lang, {
+				weekday: "long",
+			});
+			const shortWeekDay = new Date(normalizedDay).toLocaleString(lang, {
+				weekday: "short",
+			});
 			return html`<th class="weekday">
 				<span class="sr-only">${longWeekDay}</span
 				><span aria-hidden="true">${shortWeekDay}</span>
@@ -145,15 +157,19 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 		const monthHeaders = Object.keys(monthColspan)
 			.map((monthYear) => {
 				const [year, month] = monthYear.split("-").map(Number);
-				const monthName = new Date(
+				const shortMonthName = new Date(
 					Date.UTC(year, month)
 				).toLocaleString(lang, { month: "short" });
+				const longMonthName = new Date(
+					Date.UTC(year, month)
+				).toLocaleString(lang, { month: "long" });
 				return html`<th
 					class="month"
 					colspan="${monthColspan[monthYear]}"
 					scope="colgroup"
 				>
-					<span aria-hidden="true">${monthName}</span>
+					<span class="sr-only">${longMonthName}</span>
+					<span aria-hidden="true">${shortMonthName}</span>
 				</th>`;
 			})
 			.join("");
@@ -255,9 +271,11 @@ export default function ActivityGraphElement({ html = String.raw, state }) {
 				}
 				activity-graph table {
 					width: max-content;
+					border-collapse: separate;
 				}
 				activity-graph th,
 				activity-graph td {
+					border: 0px solid transparent;
 					text-align: left;
 				}
 

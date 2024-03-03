@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import enhance from "@enhance/ssr";
-import ActivityGraphElement from "./src/activity-graph-element.mjs";
+import ActivityGraphWasm from "./src/activity-graph-wasm.mjs";
 
 const htmlPlugin = () => {
 	return {
@@ -10,7 +10,7 @@ const htmlPlugin = () => {
 
 			const render = enhance({
 				elements: {
-					"activity-graph": ActivityGraphElement,
+					"activity-graph": ActivityGraphWasm,
 				},
 				bodyContent: false,
 			});
