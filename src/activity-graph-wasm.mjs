@@ -150,7 +150,7 @@ dayjs.extend(localizedFormat);
 
 export default function ActivityGraphWasm({ ...rest }) {
 	const toLocaleStringPolyfill = (date, lang, options) => {
-		dayjs.locale(lang); // Set the locale for dayjs
+		dayjs.locale(lang === "default" ? "en" : lang); // Set the locale for dayjs
 
 		// Map the options to dayjs format tokens
 		const formatMap = {

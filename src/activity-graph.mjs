@@ -17,6 +17,7 @@ class ActivityGraph extends HTMLElement {
 			"activity-levels",
 			"lang",
 			"i18n",
+			"first-day-of-week",
 		].forEach((attr) => (attributes[attr] = this.getAttribute(attr)));
 
 		this.innerHTML = ActivityGraphElement({

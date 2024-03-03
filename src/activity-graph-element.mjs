@@ -35,6 +35,7 @@ export default function ActivityGraphElement({
 	const rangeEnd = parseDateAttribute(attrs["range-end"]);
 	const activityData = parseActivityData(attrs["activity-data"]);
 	const activityLevels = parseActivityLevels(attrs["activity-levels"]);
+	const firstDayOfWeek = parseInt(attrs["first-day-of-week"] || "0", 10);
 	const lang = attrs.lang || "default";
 	const i18n = {
 		activities: "Activities",
@@ -73,12 +74,21 @@ export default function ActivityGraphElement({
 		const startDate = toUTCDate(rangeStart);
 		const endDate = toUTCDate(rangeEnd);
 
-		const adjustedStartDate = addDays(startDate, -startDate.getUTCDay());
-		const adjustedEndDate = addDays(endDate, 6 - endDate.getUTCDay());
+		// Calculate the day offset, considering the first day of the week
+		let dayOffset = startDate.getUTCDay() - firstDayOfWeek;
+		if (dayOffset < 0) dayOffset += 7; // Ensure positive offset
+
+		// Adjust the start date to align with the first day of the week
+		const adjustedStartDate = addDays(startDate, -dayOffset);
+
+		// Ensure the end date covers the last week where the end date falls
+		let endDayOffset = endDate.getUTCDay() - firstDayOfWeek;
+		if (endDayOffset < 0) endDayOffset += 7;
+		const adjustedEndDate = addDays(endDate, 6 - endDayOffset);
 
 		// Generate headers for weekdays
 		const weekDayHeaders = Array.from({ length: 7 }, (_, day) => {
-			const normalizedDay = Date.UTC(2021, 0, day + 3);
+			const normalizedDay = Date.UTC(2021, 0, day + 3 + firstDayOfWeek);
 			const longWeekDay = new Date(normalizedDay).toLocaleString(lang, {
 				weekday: "long",
 			});
@@ -86,8 +96,8 @@ export default function ActivityGraphElement({
 				weekday: "short",
 			});
 			return html`<th class="weekday">
-				<span class="sr-only">${longWeekDay}</span
-				><span aria-hidden="true">${shortWeekDay}</span>
+				<span class="sr-only">${longWeekDay}</span>
+				<span aria-hidden="true">${shortWeekDay}</span>
 			</th>`;
 		});
 
