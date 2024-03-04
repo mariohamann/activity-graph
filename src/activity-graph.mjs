@@ -8,20 +8,39 @@ class ActivityGraph extends HTMLElement {
 		if (this.getAttribute("enhanced") === "✨") return;
 
 		// Map attributes that they fit to enhance element
-		const attributes = {};
+		this.attrs = {};
 
 		[
 			"range-start",
 			"range-end",
 			"activity-data",
 			"activity-levels",
+			"first-day-of-week",
 			"lang",
 			"i18n",
-			"first-day-of-week",
-		].forEach((attr) => (attributes[attr] = this.getAttribute(attr)));
+		].forEach((attr) => (this.attrs[attr] = this.getAttribute(attr)));
 
 		this.innerHTML = ActivityGraphElement({
-			state: { attrs: attributes },
+			state: { attrs: this.attrs },
+		});
+	}
+
+	static get observedAttributes() {
+		return [
+			"range-start",
+			"range-end",
+			"activity-data",
+			"activity-levels",
+			"first-day-of-week",
+			"lang",
+			"i18n",
+		];
+	}
+
+	attributeChangedCallback(name, oldValue, newValue) {
+		this.attrs[name] = newValue;
+		this.innerHTML = ActivityGraphElement({
+			state: { attrs: this.attrs },
 		});
 	}
 }
