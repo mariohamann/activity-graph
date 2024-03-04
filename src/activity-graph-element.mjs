@@ -377,15 +377,15 @@ export default function ActivityGraphElement({
 				:where(activity-graph) .month {
 					height: 1.25em;
 				}
-				:where(activity-graph th) span {
+				:where(activity-graph) th span {
 					clip-path: none;
 					position: absolute;
 					top: -0.2em;
 				}
-				:where(activity-graph .weekday) span {
+				:where(activity-graph) .weekday span {
 					top: -0.2em;
 				}
-				:where(activity-graph tr:nth-of-type(2n + 1) th.weekday) span,
+				:where(activity-graph) tr:nth-of-type(2n + 1) .weekday span,
 				.sr-only {
 					clip: rect(0 0 0 0);
 					clip-path: inset(50%);
@@ -441,10 +441,10 @@ export default function ActivityGraphElement({
 				:where(activity-graph) table {
 					margin-bottom: 2em;
 				}
-				:where(activity-graph figcaption) div:first-of-type {
+				:where(activity-graph) figcaption div:first-of-type {
 					margin-right: 0.5em;
 				}
-				:where(activity-graph figcaption) div:last-of-type {
+				:where(activity-graph) figcaption div:last-of-type {
 					margin-left: 0.5em;
 				}
 			</style>

@@ -1,6 +1,6 @@
 {
   "name": "@mariohamann/activity-graph",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "dev": "vite",
     "build": "node scripts/build.mjs",
