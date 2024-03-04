@@ -268,23 +268,23 @@ export default function ActivityGraphElement({
 		return html`
 			<style scope="global">
 				/* Global */
-				activity-graph {
+				:where(activity-graph) {
 					color-scheme: light dark;
 					font-size: 12px;
 					display: block;
 				}
-				activity-graph figure {
+				:where(activity-graph) figure {
 					overflow-x: auto;
 					margin: 0;
 					position: relative;
 					display: block;
 				}
-				activity-graph table {
+				:where(activity-graph) table {
 					width: max-content;
 					border-collapse: separate;
 				}
-				activity-graph th,
-				activity-graph td {
+				:where(activity-graph) th,
+				:where(activity-graph) td {
 					border: 0px solid transparent;
 					text-align: left;
 				}
@@ -363,29 +363,29 @@ export default function ActivityGraphElement({
 				}
 
 				/* Headings */
-				activity-graph th {
+				:where(activity-graph) th {
 					font-weight: var(--activity-graph-text-weight);
 					color: var(--activity-graph-text-color);
 					text-align: left;
 					position: relative;
 				}
-				activity-graph th.weekday {
+				:where(activity-graph) .weekday {
 					width: 3em;
 					height: 1em;
 				}
-				activity-graph th.year,
-				activity-graph th.month {
+				:where(activity-graph) .year,
+				:where(activity-graph) .month {
 					height: 1.25em;
 				}
-				activity-graph th span {
+				:where(activity-graph th) span {
 					clip-path: none;
 					position: absolute;
 					top: -0.2em;
 				}
-				activity-graph th.weekday span {
+				:where(activity-graph .weekday) span {
 					top: -0.2em;
 				}
-				activity-graph tr:nth-of-type(2n + 1) th.weekday span,
+				:where(activity-graph tr:nth-of-type(2n + 1) th.weekday) span,
 				.sr-only {
 					clip: rect(0 0 0 0);
 					clip-path: inset(50%);
@@ -399,37 +399,37 @@ export default function ActivityGraphElement({
 				}
 
 				/* Cells */
-				activity-graph .day {
+				:where(activity-graph) .day {
 					width: 1em;
 					height: 1em;
 					outline-offset: -1px;
 					border-radius: var(--activity-graph-rounded);
 				}
-				activity-graph .level-0 {
+				:where(activity-graph) .level-0 {
 					background-color: var(--activity-graph-level-0-bg);
 					outline: 1px solid var(--activity-graph-level-0-border);
 				}
-				activity-graph .level-1 {
+				:where(activity-graph) .level-1 {
 					background-color: var(--activity-graph-level-1-bg);
 					outline: 1px solid var(--activity-graph-level-1-border);
 				}
-				activity-graph .level-2 {
+				:where(activity-graph) .level-2 {
 					background-color: var(--activity-graph-level-2-bg);
 					outline: 1px solid var(--activity-graph-level-2-border);
 				}
-				activity-graph .level-3 {
+				:where(activity-graph) .level-3 {
 					background-color: var(--activity-graph-level-3-bg);
 					outline: 1px solid var(--activity-graph-level-3-border);
 				}
-				activity-graph .level-4 {
+				:where(activity-graph) .level-4 {
 					background-color: var(--activity-graph-level-4-bg);
 					outline: 1px solid var(--activity-graph-level-4-border);
 				}
-				activity-graph .disabled {
+				:where(activity-graph) .disabled {
 					background-color: var(--activity-graph-disabled-bg);
 				}
 				/* Legend */
-				activity-graph figcaption {
+				:where(activity-graph) figcaption {
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -438,13 +438,13 @@ export default function ActivityGraphElement({
 					position: sticky;
 					left: 0;
 				}
-				activity-graph table {
+				:where(activity-graph) table {
 					margin-bottom: 2em;
 				}
-				activity-graph figcaption div:first-of-type {
+				:where(activity-graph figcaption) div:first-of-type {
 					margin-right: 0.5em;
 				}
-				activity-graph figcaption div:last-of-type {
+				:where(activity-graph figcaption) div:last-of-type {
 					margin-left: 0.5em;
 				}
 			</style>

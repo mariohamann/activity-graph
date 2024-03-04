@@ -32,14 +32,13 @@ body {
 	min-height: 100vh;
 	color: var(--activity-graph-text-color);
 }
-body activity-graph figure {
-	padding: 12px;
+activity-graph figure {
+	padding: 16px;
 	border-radius: 8px;
 	border: solid 1px rgb(48, 54, 61);
 	font-size: 12px;
 	width: 480px;
 }
-
 activity-graph table {
 	margin-right: 12px;
 }
