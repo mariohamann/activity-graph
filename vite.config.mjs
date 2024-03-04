@@ -15,8 +15,8 @@ const htmlPlugin = () => {
 				bodyContent: false,
 			});
 			return render`${html}`
-				.replace("<!-- client", "")
-				.replace("/client -->", "");
+				.replaceAll("<!-- client", "")
+				.replaceAll("/client -->", "");
 		},
 	};
 };

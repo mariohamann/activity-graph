@@ -20,6 +20,12 @@ class ActivityGraph extends HTMLElement {
 			"i18n",
 		].forEach((attr) => (this.attrs[attr] = this.getAttribute(attr)));
 
+		if (this.activityDataFromChildren.length > 0) {
+			this.attrs["activity-data"] =
+				this.activityDataFromChildren.join(",");
+			this.setAttribute("activity-data", this.attrs["activity-data"]);
+		}
+
 		this.innerHTML = ActivityGraphElement({
 			state: { attrs: this.attrs },
 		});
@@ -42,6 +48,12 @@ class ActivityGraph extends HTMLElement {
 		this.innerHTML = ActivityGraphElement({
 			state: { attrs: this.attrs },
 		});
+	}
+
+	get activityDataFromChildren() {
+		return Array.from(this.querySelectorAll("[data-activity]")).map((el) =>
+			el.getAttribute("data-activity")
+		);
 	}
 }
 
