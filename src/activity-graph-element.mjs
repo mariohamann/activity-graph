@@ -282,6 +282,7 @@ export default function ActivityGraphElement({
 				:where(activity-graph) table {
 					width: max-content;
 					border-collapse: separate;
+					border-spacing: 1px;
 				}
 				:where(activity-graph) th,
 				:where(activity-graph) td {
@@ -364,10 +365,12 @@ export default function ActivityGraphElement({
 
 				/* Headings */
 				:where(activity-graph) th {
+					padding: 0;
 					font-weight: var(--activity-graph-text-weight);
 					color: var(--activity-graph-text-color);
 					text-align: left;
 					position: relative;
+					background: transparent;
 				}
 				:where(activity-graph) .weekday {
 					width: 3em;
@@ -398,8 +401,8 @@ export default function ActivityGraphElement({
 					width: 1px;
 				}
 
-				/* Cells */
 				:where(activity-graph) .day {
+					padding: 0;
 					width: 1em;
 					height: 1em;
 					outline-offset: -1px;
@@ -425,7 +428,7 @@ export default function ActivityGraphElement({
 					background-color: var(--activity-graph-level-4-bg);
 					outline: 1px solid var(--activity-graph-level-4-border);
 				}
-				:where(activity-graph) .disabled {
+				:where(activity-graph) .level-disabled {
 					background-color: var(--activity-graph-disabled-bg);
 				}
 				/* Legend */
