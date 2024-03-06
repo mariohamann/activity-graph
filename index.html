@@ -5,21 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Activity Graph (Web Component)</title>
   <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/node_modules/@picocss/pico/css/pico.css" />
 </head>
 <body class="activity-graph-auto">
-  <h1><code>&lt;activity-graph&gt;</code></h1>
-  <h2>Server Side Rendered</h2>
-  <h3>First Day of Week</h3>
-  <activity-graph range-start="2024-01-01" range-end="2024-12-31"
-    activity-data="2024-01-01,2024-01-01,2024-01-04,2024-01-05" activity-levels="0,1,2,4" first-day-of-week="1">
-  </activity-graph>
-  <pre><code>&lt;activity-graph first-day-of-week="1"&gt;&lt;/activity-graph&gt;</code></pre>
+  <main class="container">
+    <nav>
+      <h1>
+        <code>&lt;activity-graph&gt;</code>
+      </h1>
+      <ul>
+        <li><a href="#">Attributes</a></li>
+        <li><a href="#">Styling</a></li>
+        <li><a href="#">Rendering</a></li>
+      </ul>
+    </nav>
+    <p>
+      The <code>&lt;activity-graph&gt;</code> web component visualizes activity data. It is a simple way to show
+      activity over time as known from GitHub's contribution graph. It is built with accessibility, performance,
+      progressive enhancement and flexibility in mind.
+    </p>
+    <h2>Attributes</h2>
+    <!-- RANGE START -->
+    <h3>Range Start/End</h3>
+    Use the <code>range-start</code> and <code>range-end</code> attributes to define the range of the graph.
 
-  <h3>i18n</h3>
-  <activity-graph range-start="2024-01-01" range-end="2024-12-31"
-    activity-data="2024-01-01,2024-01-01,2024-01-04,2024-01-05" activity-levels="0,1,2,4"
-    i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}' lang="de"></activity-graph>
-  <!-- client
+    <activity-graph range-start="2024-01-01" range-end="2024-01-31"> </activity-graph>
+    <code>&lt;activity-graph range-start="2024-01-01" range-end="2024-01-31"&gt;&lt;/activity-graph&gt;</code>
+    <activity-graph range-start="2024-01-01" range-end="2024-12-31"> </activity-graph>
+    <code>&lt;activity-graph range-start="2024-01-01" range-end="2024-12-31"&gt;&lt;/activity-graph&gt;</code>
+    <!-- DATA -->
+    <h3>Activity Data</h3>
+    <p>
+      The <code>activity-data</code> attribute expects a comma-separated list of dates. By setting dates multiple times
+      the activity level can be increased.</p>
+    <activity-graph range-start="2024-01-01" range-end="2024-01-31"
+      activity-data="2024-01-01,2024-01-01,2024-01-01,2024-01-04,2024-01-05"> </activity-graph>
+    <code>
+      &lt;activity-graph
+      activity-data="2024-01-01,2024-01-01,2024-01-01,2024-01-04,2024-01-05"
+      &gt;&lt;/activity-graph&gt;
+    </code>
+    </pre>
+    <p>As an alternative you can utilize progressive enhancement to fill the data by setting children </p>
+    <h3>Activity Levels</h3>
+    <p>
+      The <code>activity-levels</code> attribute expects a comma-separated list of numbers. The numbers define the
+      threshold for each level. The first number is the lowest level, the last number is the highest level. The number
+      of levels is the length of the list. The default is <code>0,1,2,3</code>.</p>
+    <p>The following example shows a graph
+      with three levels, where the second level has a threshold of <code>2</code> and the third level has a
+      threshold of <code>4</code>.
+    </p>
+    <activity-graph range-start="2024-01-01" range-end="2024-01-31"
+      activity-data="2024-01-01,2024-01-01,2024-01-01,2024-01-04,2024-01-05" activity-levels="0,2,4">
+    </activity-graph>
+    <code> &lt;activity-graph activity-data="2024-01-01,2024-01-01,2024-01-01,2024-01-04,2024-01-05"
+      activity-levels="0,2,4"
+      &gt;&lt;/activity-graph&gt; </code>
+
+    <!-- FIRST DAY -->
+    <h3>First Day of Week</h3>
+    <p>Per default the first day of week is set to <code>0</code> (Sunday). Set a number between <code>0</code> and
+      <code>6</code>, representing the day of the week, to alter the day.
+    </p>
+    <activity-graph range-start="2024-01-01" range-end="2024-01-31" first-day-of-week="1"> </activity-graph>
+
+    <pre><code>&lt;activity-graph first-day-of-week="1"&gt;&lt;/activity-graph&gt;</code></pre>
+
+    <h3>i18n</h3>
+    <p>
+      Use the <code>lang</code> attribute to set the language of the graph. This will set the language of the weekdays,
+      months etc.</p>
+    <p> Use the <code>i18n</code> attribute to customize the labels. The default is set to
+      <code>{"activities":"Activities","less":"Less","more":"More"}</code>.
+    </p>
+    <activity-graph range-start="2024-01-01" range-end="2024-12-31"
+      activity-data="2024-01-01,2024-01-01,2024-01-04,2024-01-05" activity-levels="0,1,2,4"
+      i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}' lang="de"></activity-graph>
+
+    <code>
+      &lt;activity-graph
+      i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
+      lang="de"
+      &gt;&lt;/activity-graph&gt;
+    </code>
+    <!-- client
 		<h2>Client Side Rendered</h2>
 		<activity-graph
 			range-start="2024-01-01"
@@ -30,8 +100,8 @@
 			lang="de"
 		></activity-graph>
 		/client -->
-  <h2>Progressive Enhancement / HTML Web Component</h2>
-  <!-- client
+    <h2>Progressive Enhancement / HTML Web Component</h2>
+    <!-- client
   <activity-graph range-start="2024-01-01" range-end="2024-12-31" activity-levels="0,1,2,4">
     <ul>
       <li data-activity="2024-01-03">Activity on 2024-01-03</li>
@@ -41,23 +111,12 @@
     </ul>
   </activity-graph>
   /client -->
-  <pre>
-    <code>
-      &lt;activity-graph
-      range-start="2024-01-01"
-      range-end="2024-12-29"
-      activity-data="2024-01-01,2024-01-01,2024-01-04,2024-01-05"
-      activity-levels="0,1,2,4"
-      i18n='{"activities":"Aktivitäten","less":"Weniger","more":"Mehr"}'
-      lang="de"
-      &gt;&lt;/activity-graph&gt;
-    </code>
-  </pre>
-  <div>
-    <a href="https://github.com/mariohamann/activity-graph">github.com</a>
-    <span>•</span>
-    <a href="https://mariohamann.com">mariohamann.com</a>
-  </div>
-  <script type="module" src="/src/activity-graph.mjs"></script>
+    <div>
+      <a href="https://github.com/mariohamann/activity-graph">github.com</a>
+      <span>•</span>
+      <a href="https://mariohamann.com">mariohamann.com</a>
+    </div>
+    <script type="module" src="/src/activity-graph.mjs"></script>
+  </main>
 </body>
 </html>

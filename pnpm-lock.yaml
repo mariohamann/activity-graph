@@ -8,6 +8,9 @@ devDependencies:
   '@enhance/ssr':
     specifier: ^3.5.2
     version: 3.5.2
+  '@picocss/pico':
+    specifier: ^2.0.6
+    version: 2.0.6
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -489,6 +492,11 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /@picocss/pico@2.0.6:
+    resolution: {integrity: sha512-/d8qsykowelD6g8k8JYgmCagOIulCPHMEc2NC4u7OjmpQLmtSetLhEbt0j1n3fPNJVcrT84dRp0RfJBn3wJROA==}
+    engines: {node: '>=18.19.0'}
     dev: true
 
   /@rollup/rollup-android-arm-eabi@4.12.0:

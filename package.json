@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@enhance/ssr": "^3.5.2",
+    "@picocss/pico": "^2.0.6",
     "dayjs": "^1.11.10",
     "esbuild": "^0.20.1",
     "minify-html-literals": "^1.3.5",
