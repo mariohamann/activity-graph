@@ -1,4 +1,4 @@
-import ActivityGraphElement from "./activity-graph-element.mjs";
+import ActivityGraphElement from "./activity-graph-element.js";
 import dayjs from "dayjs";
 import "dayjs/locale/am";
 import "dayjs/locale/ar-dz";

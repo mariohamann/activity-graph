@@ -3,7 +3,7 @@ export default function ActivityGraphElement({
 	state,
 	toLocaleStringPolyfill = null,
 }) {
-	const css = String.raw;
+	const css = String.raw; // only for formatting
 	const { attrs = {} } = state;
 
 	// In WASM context Date.toLocaleString is polyfilled by dayjs

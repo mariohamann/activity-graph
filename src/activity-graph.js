@@ -1,4 +1,4 @@
-import ActivityGraphElement from "./activity-graph-element.mjs";
+import ActivityGraphElement from "./activity-graph-element.js";
 
 class ActivityGraph extends HTMLElement {
 	constructor() {

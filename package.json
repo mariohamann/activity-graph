@@ -1,10 +1,14 @@
 {
   "name": "@mariohamann/activity-graph",
   "version": "0.0.11",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "node scripts/build.mjs",
     "preview": "vite preview"
+  },
+  "exports": {
+    "./*": "./dist/*.js"
   },
   "devDependencies": {
     "@enhance/ssr": "^3.5.2",

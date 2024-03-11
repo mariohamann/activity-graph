@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import enhance from "@enhance/ssr";
-import ActivityGraphWasm from "./src/activity-graph-wasm.mjs";
+import ActivityGraphWasm from "./src/activity-graph-wasm.js";
 
 const htmlPlugin = () => {
 	return {
