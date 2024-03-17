@@ -14,15 +14,22 @@
 
 a {
 	font-weight: 500;
-	color: var(--activity-graph-level-4-bg);
-	text-decoration: inherit;
+	color: var(--activity-graph-text-color);
+	text-decoration: underline;
 }
 a:hover {
-	color: var(--activity-graph-level-3-bg);
+	color: var(--activity-graph-text-color);
+	text-decoration: none;
 }
 
 body {
 	color: var(--activity-graph-text-color);
+	padding: 24px;
+}
+
+main {
+	max-width: 500px;
+	margin: 0 auto;
 }
 
 activity-graph {
