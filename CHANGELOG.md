@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/mariohamann/activity-graph/compare/v1.0.0...v1.0.1) (2024-03-17)
+
+
+### Bug Fixes
+
+* include dist in release ([2abe726](https://github.com/mariohamann/activity-graph/commit/2abe7261b99666bffdd9e484f84ff82bdc0d34ce))
+
 # 1.0.0 (2024-03-17)
 
 
