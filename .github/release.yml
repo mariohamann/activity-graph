@@ -1,0 +1,60 @@
+name: Release
+on:
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: read
+
+jobs:
+    quality-gate:
+        name: Quality Gate
+        runs-on: ubuntu-latest
+        container:
+            image: mcr.microsoft.com/playwright:v1.40.1-jammy
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "lts/*"
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8.6.2
+            - name: Install dependencies
+              run: pnpm i
+            - name: Run build
+              run: pnpm run build
+            - name: Run docs build
+              run: pnpm run docs
+
+    release:
+        name: Release
+        needs: [quality-gate]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write # to be able to publish a GitHub release
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "lts/*"
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8.6.2
+            - name: Install dependencies
+              run: pnpm i
+            - name: Release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: npx semantic-release

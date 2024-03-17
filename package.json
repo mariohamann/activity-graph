@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/build.mjs",
+    "docs": "vite build",
     "preview": "vite preview"
   },
   "exports": {
@@ -15,11 +16,47 @@
   },
   "devDependencies": {
     "@enhance/ssr": "^3.5.2",
-    "@picocss/pico": "^2.0.6",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.0",
+    "@semantic-release/release-notes-generator": "^12.1.0",
     "dayjs": "^1.11.10",
     "esbuild": "^0.20.1",
     "minify-html-literals": "^1.3.5",
+    "semantic-release": "^23.0.4",
     "terser": "^5.28.1",
     "vite": "^5.1.4"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": true
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "message": "v${nextRelease.version}\n\n${nextRelease.notes}",
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ]
+        }
+      ]
+    ]
   }
 }

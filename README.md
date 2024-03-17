@@ -14,6 +14,7 @@
             -   [Progressive Enhancement (Client Side Rendering)](#progressive-enhancement-client-side-rendering)
             -   [Enhance SSR](#enhance-ssr)
             -   [Enhance SSR WASM](#enhance-ssr-wasm)
+    -   [Accessibility](#accessibility)
 
 The `<activity-graph>` web component visualizes activity data. It is a simple way to display activity over time, similar to GitHub's contribution graph. It is built with accessibility, flexibility and especially client and server side rendering (SSR) in mind.
 
@@ -185,3 +186,7 @@ he JavaScript runtime of Extism's JavaScript PDK (which is used to compile `enha
 > Make sure to use the smallest appropriate bundle to reduce processing time.
 
 The smallest file is `dist/activity-graph-wasm/en.min.js` and is therefore recommended for testing purposes.
+
+## Accessibility
+
+The component heavily relies on proper semantics, e. g. the usage of `figure`, `figcaption`, `table`, `colspan`, `colgroup` etc. If you have any concerns regarding the implementation, please file an issue.

@@ -7,7 +7,6 @@ const htmlPlugin = () => {
 		name: "html-transform",
 		transformIndexHtml(html) {
 			// everything between <!-- client --> and <!-- /client -->
-
 			const render = enhance({
 				elements: {
 					"activity-graph": ActivityGraphWasm,
