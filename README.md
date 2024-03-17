@@ -117,7 +117,8 @@ activity-graph: {
 }
 ```
 
-> [!TIP] Target `activity-graph` or `activity-graph.activity-graph-dark` etc. to easily override styles.
+> [!TIP]
+> Target `activity-graph` or `activity-graph.activity-graph-dark` etc. to easily override styles.
 
 ### Rendering
 
@@ -125,7 +126,8 @@ activity-graph: {
 
 The web component supports to progressively enhance your content. For that you can "slot" your `activity-data` e. g. in a list. The web component will then take the data from every element's `data-activity` and render the graph instead of the content. This way you can provide a fallback for users with JavaScript disabled.
 
-> [!WARNING] This is the preferred implementation for client side rendering and only works there.
+> [!WARNING]
+> This is the preferred implementation for client side rendering and only works there.
 
 ```html
 <activity-graph>
@@ -142,7 +144,8 @@ The web component supports to progressively enhance your content. For that you c
 
 `activity-graph` is provided as a pure function to be used with `@enhance/ssr` for Server Side Rendering. See [Official docs](https://enhance.dev/docs/conventions/elements) or [NPM](https://www.npmjs.com/package/@enhance/ssr) for more information.
 
-> [!TIP] There's no client-side JavaScript required.
+> [!TIP]
+> There's no client-side JavaScript required.
 
 ```js
 import ActivityGraph from "activity-graph/element";
@@ -159,7 +162,8 @@ console.log(html`<activity-graph></activity-graph>`);
 
 `activity-graph` is provided as a pure function to be used with [enhance-ssr-wasm](https://github.com/enhance-dev/enhance-ssr-wasm). This allows you to use the component in "any language that [Extism](https://github.com/extism/extism) has an SDK for including Python, Ruby, .NET, Rust, Go, PHP, Java and more".
 
-> [!TIP] There's no client-side JavaScript required.
+> [!TIP]
+> There's no client-side JavaScript required.
 
 For implementation details see the examples by the Enhance team:
 
@@ -177,6 +181,7 @@ he JavaScript runtime of Extism's JavaScript PDK (which is used to compile `enha
 -   `dist/activity-graph-wasm/en(.min).js`: includes only `en`
 -   `dist/activity-graph-wasm/{locale}(.min).js`: includes only {locale} + `en`
 
-> [!CAUTION] Make sure to use the smallest appropriate bundle to reduce processing time.
+> [!CAUTION]
+> Make sure to use the smallest appropriate bundle to reduce processing time.
 
 The smallest file is `dist/activity-graph-wasm/en.min.js` and is therefore recommended for testing purposes.
