@@ -110,7 +110,6 @@ export default function ActivityGraphElement({
 		for (
 			let date = new Date(adjustedStartDate);
 			date <= adjustedEndDate;
-
 		) {
 			const weekDay = date.getUTCDay();
 			const weekEndDate = addDays(date, 6 - weekDay);
@@ -141,7 +140,7 @@ export default function ActivityGraphElement({
 				const level = isDateInRange(currentDate)
 					? calculateActivityLevel(dateKey)
 					: "disabled";
-				const text = `${dateKey} – Activities: ${
+				const text = `${currentDate.toLocaleDateString(lang)} – Activities: ${
 					activityData[dateKey] || 0
 				}`;
 				bodyRows[d].push(

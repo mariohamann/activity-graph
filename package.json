@@ -8,7 +8,10 @@
     "preview": "vite preview"
   },
   "exports": {
-    "./*": "./dist/*.js"
+    ".": "./dist/activity-graph.js",
+    "./wasm": "./dist/activity-graph-wasm.js",
+    "./wasm/*": "./dist/activity-graph-wasm/*.js",
+    "./element": "./dist/activity-graph-element.js"
   },
   "devDependencies": {
     "@enhance/ssr": "^3.5.2",

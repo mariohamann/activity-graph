@@ -3,55 +3,109 @@ import esbuild from "esbuild";
 import fs from "fs";
 import { minifyHTMLLiterals } from "minify-html-literals";
 import { minify_sync } from "terser";
+import dayJsLocales from 'dayjs/locale.json' with { type: 'json' };
 
 (async () => {
-	// copy element
-	fs.writeFileSync(
-		"dist/activity-graph-element.js",
-		fs.readFileSync("src/activity-graph-element.js", "utf8")
-	);
+  // remove and create dist folder
+  if (fs.existsSync("dist")) {
+    fs.rmSync("dist", { recursive: true });
+  }
+  fs.mkdirSync("dist");
 
-	// bundle web component
-	await esbuild.build({
-		entryPoints: ["src/activity-graph.js"],
-		bundle: true,
-		outdir: "dist",
-	});
+  // copy element
+  fs.writeFileSync(
+    "dist/activity-graph-element.js",
+    fs.readFileSync("src/activity-graph-element.js", "utf8")
+  );
 
-	// build pre-wasm
-	await esbuild.build({
-		entryPoints: ["src/activity-graph-wasm.js"],
-		bundle: true,
-		outdir: "dist",
-		format: "cjs",
-	});
+  // bundle web component
+  await esbuild.build({
+    entryPoints: ["src/activity-graph.js"],
+    bundle: true,
+    outdir: "dist",
+  });
 
-	// minify
-	["activity-graph-element", "activity-graph", "activity-graph-wasm"].forEach(
-		(element) => {
-			// minify html & css
-			let minified = minifyHTMLLiterals(
-				fs.readFileSync(`dist/${element}.js`, "utf8")
-			).code;
+  // build main wasm
+  const locales = dayJsLocales
+    .map(locale => locale.key);
 
-			// minify js via terser
-			minified = minify_sync(minified).code;
+  const originalWasm = fs.readFileSync("src/activity-graph-wasm.js", "utf8")
 
-			// remove all tabs and line breaks
-			minified = minified.replaceAll("\t", "").replaceAll("\n", "");
+  fs.writeFileSync(
+    "dist/activity-graph-wasm.js",
+    // import all locales
+    originalWasm.replace(
+      /\/\* locales \*\/[\s\S]*?\/\* \/locales \*\//,
+      `${locales
+        .filter(locale => locale !== 'en')
+        .map(locale => `import "dayjs/locale/${locale}";`)
+        .join('\n')}`
+    )
+  );
 
-			fs.writeFileSync(`dist/${element}.min.js`, minified);
-		}
-	);
+  await esbuild.build({
+    entryPoints: ["dist/activity-graph-wasm.js"],
+    bundle: true,
+    outdir: "dist",
+    format: "cjs",
+    allowOverwrite: true,
+  });
 
-	// generate final wasm
-	["activity-graph-wasm", "activity-graph-wasm.min"].forEach((element) => {
-		let code = fs.readFileSync(`dist/${element}.js`, "utf8");
+  // create wasm locales
+  fs.mkdirSync("dist/activity-graph-wasm");
 
-		let output = `({ ...rest }) => {`;
-		output += code;
-		output += `return ActivityGraphWasm({ ...rest });}`;
+  locales.forEach(locale => {
+    fs.writeFileSync(
+      `dist/activity-graph-wasm/${locale}.js`,
+      originalWasm
+      .replace(
+        /\/\* locales \*\/[\s\S]*?\/\* \/locales \*\//,
+        locale !== 'en' ? `import "dayjs/locale/${locale}";` : ''
+      )
+      .replace(
+        './activity-graph-element.js',
+        '../activity-graph-element.js'
+      )
+    );
+  });
 
-		fs.writeFileSync(`dist/${element}.js`, output);
-	});
+  await esbuild.build({
+    entryPoints: ["dist/activity-graph-wasm/*"],
+    bundle: true,
+    outdir: "dist/activity-graph-wasm",
+    format: "cjs",
+    allowOverwrite: true,
+  });
+
+  // minify all files
+  ["activity-graph-element", "activity-graph", "activity-graph-wasm",
+    ...locales.map((locale) => `activity-graph-wasm/${locale}`)].forEach(
+      (element) => {
+        // minify html & css
+        let minified = minifyHTMLLiterals(
+          fs.readFileSync(`dist/${element}.js`, "utf8")
+        ).code;
+
+        // minify js via terser
+        minified = minify_sync(minified).code;
+
+        // remove all tabs and line breaks
+        minified = minified.replaceAll("\t", "").replaceAll("\n", "");
+
+        fs.writeFileSync(`dist/${element}.min.js`, minified);
+      }
+    );
+
+  // generate all final wasms
+  ["activity-graph-wasm", "activity-graph-wasm.min",
+    ...locales.map((locale) => `activity-graph-wasm/${locale}`), ,
+    ...locales.map((locale) => `activity-graph-wasm/${locale}.min`)].forEach((element) => {
+    let code = fs.readFileSync(`dist/${element}.js`, "utf8");
+
+    let output = `({ ...rest }) => {`;
+    output += code;
+    output += `return ActivityGraphWasm({ ...rest });}`;
+
+    fs.writeFileSync(`dist/${element}.js`, output);
+  });
 })();
