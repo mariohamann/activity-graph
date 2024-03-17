@@ -8,6 +8,9 @@
     "docs": "vite build",
     "preview": "vite preview"
   },
+  "files": [
+    "./dist"
+  ],
   "exports": {
     ".": "./dist/activity-graph.js",
     "./wasm": "./dist/activity-graph-wasm.js",
