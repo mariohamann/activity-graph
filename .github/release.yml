@@ -26,10 +26,10 @@ jobs:
                   version: 8.6.2
             - name: Install dependencies
               run: pnpm i
+            - name: Run docs build
+              run: pnpm run build-docs
             - name: Run build
               run: pnpm run build
-            - name: Run docs build
-              run: pnpm run docs
 
     release:
         name: Release

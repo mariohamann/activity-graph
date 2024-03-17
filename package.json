@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/build.mjs",
-    "docs": "vite build",
+    "build-docs": "vite build",
     "preview": "vite preview"
   },
   "files": [
