@@ -1,7 +1,7 @@
 # activity-graph
 
 -   [activity-graph](#activity-graph)
-    -   [Features](#features)
+    -   [Main Features](#main-features)
     -   [Installation](#installation)
         -   [CDN](#cdn)
         -   [NPM](#npm)
@@ -18,17 +18,17 @@
 
 The `<activity-graph>` web component visualizes activity data. It is a simple way to display activity over time, similar to GitHub's contribution graph. It is built with accessibility, flexibility and especially client and server side rendering (SSR) in mind.
 
--   [GitHub / Docs]()
--   [NPM]()
--   [Demo]()
--   [Blog post]()
+-   [GitHub / Docs](https://github.com/mariohamann/activity-graph)
+-   [NPM](https://www.npmjs.com/package/@mariohamann/activity-graph)
+-   [Demo](https://mariohamann.github.io/activity-graph/)
+-   [Blog post](https://mariohamann.com/activity-graph-component/)
 
-## Features
+## Main Features
 
--   0 dependencies
--   easily stylable via LightDOM
--   prepared for Client and Server Side Rendering
--   supports Progressive Enhancement
+-   📦 0 dependencies
+-   🎉 flexible usage via attributes
+-   🎨 easily stylable via LightDOM and CSS variables
+-   🖥️ supports Client and Server Side Rendering
 
 ## Installation
 
@@ -37,7 +37,7 @@ The `<activity-graph>` web component visualizes activity data. It is a simple wa
 ```html
 <script
 	type="module"
-	src="https://cdn.jsdelivr.net/npm/activity-graph/dist/activity-graph.min.js"
+	src="https://cdn.jsdelivr.net/npm/@mariohamann/activity-graph/dist/activity-graph.min.js"
 ></script>
 ```
 
@@ -48,11 +48,11 @@ The `<activity-graph>` web component visualizes activity data. It is a simple wa
 ### NPM
 
 ```bash
-npm install activity-graph
+npm install @mariohamann/activity-graph
 ```
 
 ```javascript
-import "activity-graph";
+import "@mariohamann/activity-graph";
 ```
 
 ```html
@@ -149,7 +149,7 @@ The web component supports to progressively enhance your content. For that you c
 > There's no client-side JavaScript required.
 
 ```js
-import ActivityGraph from "activity-graph/element";
+import ActivityGraph from "@mariohamann/activity-graph/element";
 import enhance from "@enhance/ssr";
 const html = enhance({
 	elements: {

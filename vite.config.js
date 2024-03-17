@@ -6,13 +6,13 @@ const htmlPlugin = () => {
 	return {
 		name: "html-transform",
 		transformIndexHtml(html) {
-			// everything between <!-- client --> and <!-- /client -->
 			const render = enhance({
 				elements: {
 					"activity-graph": ActivityGraphWasm,
 				},
 				bodyContent: false,
 			});
+			// transform everything between <!-- client --> and <!-- /client -->
 			return render`${html}`
 				.replaceAll("<!-- client", "")
 				.replaceAll("/client -->", "");
@@ -22,4 +22,5 @@ const htmlPlugin = () => {
 
 export default defineConfig({
 	plugins: [htmlPlugin()],
+  base: "https://mariohamann.github.io/activity-graph/"
 });
