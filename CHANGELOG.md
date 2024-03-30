@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/mariohamann/activity-graph/compare/v1.0.1...v1.0.2) (2024-03-30)
+
+
+### Bug Fixes
+
+* make component reactive even if already enhanced ([e35bbb5](https://github.com/mariohamann/activity-graph/commit/e35bbb50ee1c621fde8aa28464827fb5312a84a4))
+
 ## [1.0.1](https://github.com/mariohamann/activity-graph/compare/v1.0.0...v1.0.1) (2024-03-17)
 
 
