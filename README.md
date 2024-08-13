@@ -101,6 +101,10 @@ To theme the graph, you can use the following CSS variables (showing their defau
 
 ```css
 activity-graph {
+	--activity-graph-rounded: 2px;
+ 	--activity-graph-text-weight: 400;
+ 	--activity-graph-font-size: 12px;
+ 	--activity-graph-level-0-bg: #161b22;
 	--activity-graph-text-color: #24292e;
 	--activity-graph-level-0-bg: #ebedf0;
 	--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
