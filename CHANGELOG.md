@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/mariohamann/activity-graph/compare/v1.0.3...v1.0.4) (2024-08-13)
+
+
+### Bug Fixes
+
+* 🐛 add missing styles in README ([dfc1137](https://github.com/mariohamann/activity-graph/commit/dfc1137de9a3b2a8e85f6bb39bb2062804bb83f5))
+
 ## [1.0.3](https://github.com/mariohamann/activity-graph/compare/v1.0.2...v1.0.3) (2024-08-13)
 
 
