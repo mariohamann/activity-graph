@@ -100,21 +100,20 @@ It supports Light and Dark Mode and uses Light Mode as default. The following cl
 To theme the graph, you can use the following CSS variables (showing their default values for Light Mode):
 
 ```css
-activity-graph: {
-	--activity-graph-rounded: 2px;
-	--activity-graph-text-weight: 400;
-	--activity-graph-font-size: 12px;
-	--activity-graph-level-0-bg: #161b22;
+activity-graph {
+	--activity-graph-text-color: #24292e;
+	--activity-graph-level-0-bg: #ebedf0;
 	--activity-graph-level-0-border: rgba(27, 31, 35, 0.06);
-	--activity-graph-level-1-bg: #0e4429;
-	--activity-graph-level-1-border: rgba(255, 255, 255, 0.05);
-	--activity-graph-level-2-bg: #006d32;
-	--activity-graph-level-2-border: rgba(255, 255, 255, 0.05);
-	--activity-graph-level-3-bg: #26a641;
-	--activity-graph-level-3-border: rgba(255, 255, 255, 0.05);
-	--activity-graph-level-4-bg: #39d353;
-	--activity-graph-level-4-border: rgba(255, 255, 255, 0.05);
+	--activity-graph-level-1-bg: #9be9a8;
+	--activity-graph-level-1-border: rgba(27, 31, 35, 0.06);
+	--activity-graph-level-2-bg: #40c463;
+	--activity-graph-level-2-border: rgba(27, 31, 35, 0.06);
+	--activity-graph-level-3-bg: #30a14e;
+	--activity-graph-level-3-border: rgba(27, 31, 35, 0.06);
+	--activity-graph-level-4-bg: #216e39;
+	--activity-graph-level-4-border: rgba(27, 31, 35, 0.06);
 	--activity-graph-disabled-bg: transparent;
+	--activity-graph-disabled-border: rgba(27, 31, 35, 0.06);
 }
 ```
 
