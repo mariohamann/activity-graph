@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/mariohamann/activity-graph/compare/v1.0.4...v1.0.5) (2024-08-13)
+
+
+### Bug Fixes
+
+* 🐛 add codepen example with themes and link to hsablonniere ([230bf72](https://github.com/mariohamann/activity-graph/commit/230bf729c491d0b8c42a995edfef6e378806d8aa))
+
 ## [1.0.4](https://github.com/mariohamann/activity-graph/compare/v1.0.3...v1.0.4) (2024-08-13)
 
 
