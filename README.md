@@ -20,6 +20,7 @@ The `<activity-graph>` web component visualizes activity data. It is a simple wa
 
 -   [GitHub / Docs](https://github.com/mariohamann/activity-graph)
 -   [NPM](https://www.npmjs.com/package/@mariohamann/activity-graph)
+-   [CodePen with Themes](https://codepen.io/mariohamann/pen/PorOQgX?editors=1100) inspired by [hsablonniere's `activity-graph`](https://github.com/hsablonniere/activity-graph/)
 -   [Demo](https://mariohamann.github.io/activity-graph/)
 -   [Blog post](https://mariohamann.com/activity-graph-component/)
 
