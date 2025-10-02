@@ -140,9 +140,12 @@ export default function ActivityGraphElement({
 				const level = isDateInRange(currentDate)
 					? calculateActivityLevel(dateKey)
 					: "disabled";
-				const text = `${currentDate.toLocaleDateString(lang)} – Activities: ${
-					activityData[dateKey] || 0
-				}`;
+				const text = `${currentDate.toLocaleString(lang, {
+					timeZone: 'UTC',
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit'
+				})} – Activities: ${activityData[dateKey] || 0}`;
 				bodyRows[d].push(
 					html`<td class="day level-${level}" title="${text}">
 						<span class="sr-only">${text}</span>
